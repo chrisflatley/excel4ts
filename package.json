@@ -29,13 +29,18 @@
     "url": "https://github.com/advisr-io/excel4node/labels/bug"
   },
   "scripts": {
+    "pretest": "npm run lint",
     "test": "NODE_ENV=test tape --ts ./tests/*.test.js",
+    "posttest": "npm run format",
     "cover": "nyc tape --ts ./tests/*.test.js",
     "build": "tsc",
     "watch": "tsc -w",
     "document": "jsdoc ./source -r -d docs",
     "prepublishOnly": "npm run build; npm run test",
-    "validate": "npm test; npm run build; node sample.js; ./validate.sh Excel.xlsx"
+    "validate": "npm test; npm run build; node sample.js; ./validate.sh Excel.xlsx",
+    "lint": "eslint . --cache --fix --ext .js,.ts",
+    "format": "prettier --loglevel warn --write \"**/*.{js,ts,md}\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
@@ -53,9 +58,15 @@
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "1.0.2",
     "@types/node": "18.11.7",
+    "@typescript-eslint/eslint-plugin": "5.41.0",
+    "@typescript-eslint/parser": "5.41.0",
     "@xmldom/xmldom": "^0.8.3",
+    "eslint": "8.26.0",
+    "husky": "8.0.1",
     "jsdoc": "^3.6.11",
+    "lint-staged": "13.0.3",
     "nyc": "^15.1.0",
+    "prettier": "2.7.1",
     "source-map-support": "^0.5.21",
     "tape": "^5.6.1",
     "tape-promise": "^4.0.0",
@@ -70,5 +81,9 @@
       "text-summary",
       "html"
     ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --cache --fix",
+    "*.{ts,tsx,css,md}": "prettier --write"
   }
 }

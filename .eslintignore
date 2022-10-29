@@ -1,0 +1,4 @@
+node_modules/
+distribution/
+coverage/
+.nyc_output/
