@@ -1,5 +1,5 @@
 let test = require("tape");
-let xl = require("../source");
+let xl = require("../source").default;
 
 test("Test library functions", (t) => {
 	t.equals(

@@ -1,7 +1,7 @@
 const tape = require("tape");
 const _tape = require("tape-promise").default;
 const test = _tape(tape);
-const xl = require("../source");
+const xl = require("../source").default;
 const DOMParser = require("@xmldom/xmldom").DOMParser;
 
 test("Generate multiple sheets", (t) => {

@@ -1,6 +1,6 @@
-const test = require("tape");
-const DOMParser = require("@xmldom/xmldom").DOMParser;
-const xl = require("../source");
+import test from "tape";
+import { DOMParser } from "@xmldom/xmldom";
+import xl from "../source";
 
 test("Cell coverage", (t) => {
 	t.plan(1);

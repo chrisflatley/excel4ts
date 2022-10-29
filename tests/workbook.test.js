@@ -1,5 +1,5 @@
 let test = require("tape");
-let xl = require("../source");
+let xl = require("../source").default;
 let Font = require("../source/lib/style/classes/font");
 
 test("Change default workbook options", (t) => {

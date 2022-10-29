@@ -12,8 +12,8 @@
     Sections are referenced in code comments with § 
 */
 
-const utils = require("./lib/utils");
 const types = require("./lib/types");
+const Workbook = require("./lib/workbook");
 
 import {
 	getExcelRowCol,
@@ -22,8 +22,8 @@ import {
 	getExcelCellRef,
 } from "./lib/utils";
 
-module.exports = {
-	Workbook: require("./lib/workbook"),
+export default {
+	Workbook,
 	PaperSize: types.paperSize,
 	CellComment: types.cellComments,
 	PrintError: types.printError,

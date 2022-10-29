@@ -1,5 +1,5 @@
 let test = require("tape");
-let xl = require("../source");
+let xl = require("../source").default;
 let Row = require("../source/lib/row/row");
 
 test("Row Tests", (t) => {

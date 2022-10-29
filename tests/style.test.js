@@ -1,5 +1,5 @@
 let test = require("tape");
-let xl = require("../source");
+let xl = require("../source").default;
 let Style = require("../source/lib/style");
 let xmlbuilder = require("xmlbuilder");
 
