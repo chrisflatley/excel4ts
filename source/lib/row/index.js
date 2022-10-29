@@ -10,13 +10,13 @@ import { Row } from "../row/row";
  * @returns {Row}
  */
 export default function rowAccessor(ws, row) {
-	if (typeof row !== "number") {
-		throw new TypeError("Row sent to row accessor was not a number.");
-	}
+  if (typeof row !== "number") {
+    throw new TypeError("Row sent to row accessor was not a number.");
+  }
 
-	if (!(ws.rows[row] instanceof Row)) {
-		ws.rows[row] = new Row(row, ws);
-	}
+  if (!(ws.rows[row] instanceof Row)) {
+    ws.rows[row] = new Row(row, ws);
+  }
 
-	return ws.rows[row];
+  return ws.rows[row];
 }

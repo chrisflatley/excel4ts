@@ -1,24 +1,24 @@
 import fs from "fs";
 
 export class MediaCollection {
-	constructor() {
-		this.items = [];
-	}
+  constructor() {
+    this.items = [];
+  }
 
-	add(item) {
-		if (typeof item === "string") {
-			fs.accessSync(item, fs.R_OK);
-		}
+  add(item) {
+    if (typeof item === "string") {
+      fs.accessSync(item, fs.R_OK);
+    }
 
-		this.items.push(item);
-		return this.items.length;
-	}
+    this.items.push(item);
+    return this.items.length;
+  }
 
-	get isEmpty() {
-		if (this.items.length === 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+  get isEmpty() {
+    if (this.items.length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

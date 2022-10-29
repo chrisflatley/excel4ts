@@ -10,8 +10,8 @@ import { Column } from "../column/column";
  * @returns {Column}
  */
 export default function colAccessor(ws, col) {
-	if (!(ws.cols[col] instanceof Column)) {
-		ws.cols[col] = new Column(col, ws);
-	}
-	return ws.cols[col];
+  if (!(ws.cols[col] instanceof Column)) {
+    ws.cols[col] = new Column(col, ws);
+  }
+  return ws.cols[col];
 }
