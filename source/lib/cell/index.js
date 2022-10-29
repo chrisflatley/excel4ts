@@ -1,9 +1,9 @@
 const deepmerge = require('deepmerge');
-const Cell = require('./cell.js');
-const Row = require('../row/row.js');
+const Cell = require('./cell');
+const Row = require('../row/row');
 const Comment = require('../classes/comment');
-const Column = require('../column/column.js');
-const Style = require('../style/style.js');
+const Column = require('../column/column');
+const Style = require('../style/style');
 const utils = require('../utils');
 const util = require('util');
 

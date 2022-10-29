@@ -1,8 +1,8 @@
 const xml = require('xmlbuilder');
 const utils = require('../utils');
-const types = require('../types/index.js');
+const types = require('../types/index');
 const hyperlinks = require('./classes/hyperlink');
-const Picture = require('../drawing/picture.js');
+const Picture = require('../drawing/picture');
 
 let _addSheetPr = (promiseObj) => {
   // §18.3.1.82 sheetPr (Sheet Properties)

@@ -1,11 +1,11 @@
 const utils = require('../utils');
 const deepmerge = require('deepmerge');
 
-const Alignment = require('./classes/alignment.js');
-const Border = require('./classes/border.js');
-const Fill = require('./classes/fill.js');
-const Font = require('./classes/font.js');
-const NumberFormat = require('./classes/numberFormat.js');
+const Alignment = require('./classes/alignment');
+const Border = require('./classes/border');
+const Fill = require('./classes/fill');
+const Font = require('./classes/font');
+const NumberFormat = require('./classes/numberFormat');
 
 let _getFontId = (wb, font = {}) => {
   // Create the Font and lookup key

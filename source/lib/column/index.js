@@ -1,6 +1,6 @@
-const Cell = require('../cell/cell.js');
-const Row = require('../row/row.js');
-const Column = require('../column/column.js');
+const Cell = require('../cell/cell');
+const Row = require('../row/row');
+const Column = require('../column/column');
 const utils = require('../utils');
 
 /**

@@ -13,12 +13,12 @@
 */
 
 const utils = require('./lib/utils');
-const types = require('./lib/types/index.js');
+const types = require('./lib/types/index');
 
 import {getExcelRowCol, getExcelAlpha, getExcelTS, getExcelCellRef} from './lib/utils';
 
 module.exports = {
-  Workbook: require('./lib/workbook/index.js'),
+  Workbook: require('./lib/workbook/index'),
   PaperSize: types.paperSize,
   CellComment: types.cellComments,
   PrintError: types.printError,
