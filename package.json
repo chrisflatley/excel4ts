@@ -34,7 +34,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "document": "jsdoc ./source -r -d docs",
-    "prepublishOnly": "npm run build; npm run test"
+    "prepublishOnly": "npm run build; npm run test",
+    "validate": "npm test; npm run build; node sample.js; ./validate.sh Excel.xlsx"
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
