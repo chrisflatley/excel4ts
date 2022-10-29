@@ -1,7 +1,6 @@
 # Contributing
 
-By participating in this project, you
-agree to abide by the thoughtbot [code of conduct].
+By participating in this project, you agree to abide by the thoughtbot [code of conduct].
 
 [code of conduct]: https://thoughtbot.com/open-source-code-of-conduct
 
@@ -10,6 +9,7 @@ agree to abide by the thoughtbot [code of conduct].
 ```
 git clone git@github.com:your-username/excel4node.git
 ```
+
 - Install package dependencies
 
 ```
@@ -30,7 +30,7 @@ npm run test
 
 - Validate generated sample Excel workbook against the xlsx-validator
 
-__This requires Docker be installed on your system to run the xlsx-validator Docker image__
+**This requires Docker be installed on your system to run the xlsx-validator Docker image**
 
 ```
 npm run build
@@ -38,13 +38,12 @@ node sample.js
 ./validate.sh Excel.xlsx
 ```
 
-- All library code is contained in the source directory. Running 'npm run watch' will start a babel watch process and transpile output to the distribution directory. 
+- All library code is contained in the source directory. Running 'npm run watch' will start a babel watch process and transpile output to the distribution directory.
 
 - Document your change in code using [jsdoc] conventions
 - Update the README.md file with instructions on how how use your change
 
 - Push to your fork and [submit a pull request][pr].
-
 
 Please follow the [style guide][style].
 

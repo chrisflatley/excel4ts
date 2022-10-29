@@ -38,7 +38,7 @@
     "document": "jsdoc ./source -r -d docs",
     "prepublishOnly": "npm run build; npm run test",
     "validate": "npm test; npm run build; node sample.js; ./validate.sh Excel.xlsx",
-    "lint": "eslint . --cache --fix --ext .js,.ts",
+    "lint": "eslint . --cache --fix --ext .ts",
     "format": "prettier --loglevel warn --write \"**/*.{js,ts,md}\"",
     "prepare": "husky install"
   },
@@ -83,7 +83,7 @@
     ]
   },
   "lint-staged": {
-    "*.{ts,tsx}": "eslint --cache --fix",
-    "*.{ts,tsx,css,md}": "prettier --write"
+    "*.{ts}": "eslint --cache --fix",
+    "*.{ts,md}": "prettier --write"
   }
 }

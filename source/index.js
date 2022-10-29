@@ -12,28 +12,33 @@
     Sections are referenced in code comments with § 
 */
 
-const utils = require('./lib/utils');
-const types = require('./lib/types');
+const utils = require("./lib/utils");
+const types = require("./lib/types");
 
-import {getExcelRowCol, getExcelAlpha, getExcelTS, getExcelCellRef} from './lib/utils';
+import {
+	getExcelRowCol,
+	getExcelAlpha,
+	getExcelTS,
+	getExcelCellRef,
+} from "./lib/utils";
 
 module.exports = {
-  Workbook: require('./lib/workbook'),
-  PaperSize: types.paperSize,
-  CellComment: types.cellComments,
-  PrintError: types.printError,
-  PageOrder: types.pageOrder,
-  Orientation: types.orientation,
-  Pane: types.pane,
-  PaneState: types.paneState,
-  HorizontalAlignment: types.alignment.horizontal,
-  VerticalAlignment: types.alignment.vertical,
-  BorderStyle: types.borderStyle,
-  PresetColorVal: types.excelColor,
-  PatternType: types.fillPattern,
-  PositiveUniversalMeasure: types.positiveUniversalMeasure,
-  getExcelRowCol,
-  getExcelAlpha,
-  getExcelTS,
-  getExcelCellRef,
+	Workbook: require("./lib/workbook"),
+	PaperSize: types.paperSize,
+	CellComment: types.cellComments,
+	PrintError: types.printError,
+	PageOrder: types.pageOrder,
+	Orientation: types.orientation,
+	Pane: types.pane,
+	PaneState: types.paneState,
+	HorizontalAlignment: types.alignment.horizontal,
+	VerticalAlignment: types.alignment.vertical,
+	BorderStyle: types.borderStyle,
+	PresetColorVal: types.excelColor,
+	PatternType: types.fillPattern,
+	PositiveUniversalMeasure: types.positiveUniversalMeasure,
+	getExcelRowCol,
+	getExcelAlpha,
+	getExcelTS,
+	getExcelCellRef,
 };
