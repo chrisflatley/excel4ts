@@ -1,5 +1,5 @@
 let test = require('tape');
-let xl = require('../source/index');
+let xl = require('../source');
 let Column = require('../source/lib/column/column');
 
 test('Column Tests', (t) => {

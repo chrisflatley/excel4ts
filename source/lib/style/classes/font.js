@@ -1,5 +1,5 @@
 const xmlbuilder = require('xmlbuilder');
-const types = require('../../types/index');
+const types = require('../../types');
 
 class Font {
   /**

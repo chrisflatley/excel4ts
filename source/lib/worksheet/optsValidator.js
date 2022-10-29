@@ -1,4 +1,4 @@
-const types = require('../types/index');
+const types = require('../types');
 
 const optsTypes = {
   margins: {

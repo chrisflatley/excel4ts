@@ -1,6 +1,6 @@
 const xml = require('xmlbuilder');
 const utils = require('../utils');
-const types = require('../types/index');
+const types = require('../types');
 const hyperlinks = require('./classes/hyperlink');
 const Picture = require('../drawing/picture');
 

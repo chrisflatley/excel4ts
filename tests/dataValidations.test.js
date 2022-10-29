@@ -1,5 +1,5 @@
 const test = require('tape');
-const xl = require('../source/index');
+const xl = require('../source');
 const DOMParser = require('@xmldom/xmldom').DOMParser;
 const DataValidation = require('../source/lib/worksheet/classes/dataValidation');
 

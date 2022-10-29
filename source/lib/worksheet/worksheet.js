@@ -6,7 +6,7 @@ const colAccessor = require('../column');
 const wsDefaultParams = require('./sheet_default_params');
 const HyperlinkCollection = require('./classes/hyperlink').HyperlinkCollection;
 const DataValidation = require('./classes/dataValidation');
-const wsDrawing = require('../drawing/index');
+const wsDrawing = require('../drawing');
 const xmlBuilder = require('./builder');
 const optsValidator = require('./optsValidator');
 

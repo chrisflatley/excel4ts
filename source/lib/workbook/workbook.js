@@ -10,7 +10,7 @@ const Font = require('../style/classes/font');
 const DXFCollection = require('./dxfCollection');
 const MediaCollection = require('./mediaCollection');
 const DefinedNameCollection = require('../classes/definedNameCollection');
-const types = require('../types/index');
+const types = require('../types');
 const builder = require('./builder');
 const http = require('http');
 import SimpleLogger from '../logger';
