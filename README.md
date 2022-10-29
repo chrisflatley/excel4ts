@@ -34,9 +34,9 @@ var ws2 = wb.addWorksheet("Sheet 2");
 var style = wb.createStyle({
   font: {
     color: "#FF0800",
-    size: 12
+    size: 12,
   },
-  numberFormat: "$#,##0.00; ($#,##0.00); -"
+  numberFormat: "$#,##0.00; ($#,##0.00); -",
 });
 
 // Set value of cell A1 to 100 as a number type styled with paramaters of style
@@ -111,12 +111,12 @@ Workbook constructor accepts an optional configuration object.
 var xl = require("excel4node");
 var wb = new xl.Workbook({
   jszip: {
-    compression: "DEFLATE"
+    compression: "DEFLATE",
   },
   defaultFont: {
     size: 12,
     name: "Calibri",
-    color: "FFFFFFFF"
+    color: "FFFFFFFF",
   },
   dateFormat: "m/d/yy hh:mm:ss",
   workbookView: {
@@ -132,10 +132,10 @@ var wb = new xl.Workbook({
     windowHeight: 17620, // Specifies the height of the workbook window. The unit of measurement for this value is twips.
     windowWidth: 28800, // Specifies the width of the workbook window. The unit of measurement for this value is twips..
     xWindow: 0, // Specifies the X coordinate for the upper left corner of the workbook window. The unit of measurement for this value is twips.
-    yWindow: 440 // Specifies the Y coordinate for the upper left corner of the workbook window. The unit of measurement for this value is twips.
+    yWindow: 440, // Specifies the Y coordinate for the upper left corner of the workbook window. The unit of measurement for this value is twips.
   },
   logLevel: 0, // 0 - 5. 0 suppresses all logs, 1 shows errors only, 5 is for debugging
-  author: "Microsoft Office User" // Name for use in features such as comments
+  author: "Microsoft Office User", // Name for use in features such as comments
 });
 ```
 
@@ -213,8 +213,8 @@ var wb = new xl.Workbook();
 var options = {
   margins: {
     left: 1.5,
-    right: 1.5
-  }
+    right: 1.5,
+  },
 };
 
 var ws = wb.addWorksheet("sheetname", options);
@@ -356,14 +356,14 @@ ws.addDataValidation({
   error: "Invalid choice was chosen",
   showDropDown: true,
   sqref: "X2:X10",
-  formulas: ["value1,value2"]
+  formulas: ["value1,value2"],
 });
 
 ws.addDataValidation({
   type: "list",
   allowBlank: 1,
   sqref: "B2:B10",
-  formulas: ["=sheet2!$A$1:$A$2"]
+  formulas: ["=sheet2!$A$1:$A$2"],
 });
 
 ws.addDataValidation({
@@ -371,7 +371,7 @@ ws.addDataValidation({
   operator: "between",
   allowBlank: 1,
   sqref: "A1:A10",
-  formulas: [0, 100]
+  formulas: [0, 100],
 });
 ```
 
@@ -387,8 +387,8 @@ var ws = wb.addWorksheet("Sheet 1");
 var myStyle = wb.createStyle({
   font: {
     bold: true,
-    color: "00FF00"
-  }
+    color: "00FF00",
+  },
 });
 
 ws.addConditionalFormattingRule("A1:A10", {
@@ -396,7 +396,7 @@ ws.addConditionalFormattingRule("A1:A10", {
   type: "expression", // the conditional formatting type
   priority: 1, // rule priority order (required)
   formula: 'NOT(ISERROR(SEARCH("ok", A1)))', // formula that returns nonzero or 0
-  style: myStyle // a style object containing styles to apply
+  style: myStyle, // a style object containing styles to apply
 });
 ```
 
@@ -428,9 +428,7 @@ Worksheet print areas can be set
 const wb = new xl.Workbook();
 const ws = wb.addWorksheet("Sheet 1");
 ws.cell(5, 3).string("Included in print area");
-ws.cell(6, 3).string(
-  "Outside of print area, not included in printing"
-);
+ws.cell(6, 3).string("Outside of print area, not included in printing");
 ws.setPrintArea(1, 1, 5, 3);
 ```
 
@@ -458,7 +456,7 @@ ws2.row(1).filter({
   firstRow: 1,
   firstColumn: 1,
   lastRow: 20,
-  lastColumn: 5
+  lastColumn: 5,
 });
 ```
 
@@ -517,14 +515,14 @@ var complexString = [
     color: "FF0000",
     size: 18,
     name: "Courier",
-    value: "Hello"
+    value: "Hello",
   },
   " World!",
   {
     color: "000000",
     underline: false,
     name: "Arial",
-    vertAlign: "subscript"
+    vertAlign: "subscript",
   },
   " All",
   " these",
@@ -534,9 +532,9 @@ var complexString = [
   {
     color: "0000FF",
     value: "\nbut",
-    vertAlign: "baseline"
+    vertAlign: "baseline",
   },
-  " now are blue"
+  " now are blue",
 ];
 ws.cell(4, 1).string(complexString);
 ws.cell(5, 1)
@@ -622,12 +620,12 @@ var ws = wb.addWorksheet("Sheet 1");
 var myStyle = wb.createStyle({
   font: {
     bold: true,
-    underline: true
+    underline: true,
   },
   alignment: {
     wrapText: true,
-    horizontal: "center"
-  }
+    horizontal: "center",
+  },
 });
 
 ws.cell(1, 1).string("my \n multiline\n string").style(myStyle);
@@ -687,8 +685,8 @@ ws.addImage({
   position: {
     type: "absoluteAnchor",
     x: "1in",
-    y: "2in"
-  }
+    y: "2in",
+  },
 });
 
 ws.addImage({
@@ -700,9 +698,9 @@ ws.addImage({
       col: 1,
       colOff: "0.5in",
       row: 1,
-      rowOff: 0
-    }
-  }
+      rowOff: 0,
+    },
+  },
 });
 
 ws.addImage({
@@ -714,15 +712,15 @@ ws.addImage({
       col: 1,
       colOff: 0,
       row: 10,
-      rowOff: 0
+      rowOff: 0,
     },
     to: {
       col: 4,
       colOff: 0,
       row: 13,
-      rowOff: 0
-    }
-  }
+      rowOff: 0,
+    },
+  },
 });
 ```
 
@@ -730,15 +728,13 @@ You can also pass buffer with loaded to memory image:
 
 ```javascript
 ws.addImage({
-  image: fs.readFileSync(
-    path.resolve(__dirname, "../sampleFiles/logo.png")
-  ),
+  image: fs.readFileSync(path.resolve(__dirname, "../sampleFiles/logo.png")),
   name: "logo", // name is not required param
   type: "picture",
   position: {
     type: "absoluteAnchor",
     x: "1in",
-    y: "2in"
-  }
+    y: "2in",
+  },
 });
 ```

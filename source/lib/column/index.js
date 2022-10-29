@@ -1,7 +1,4 @@
-const Cell = require("../cell/cell");
-const Row = require("../row/row");
-const Column = require("../column/column");
-const utils = require("../utils");
+import { Column } from "../column/column";
 
 /**
  * Module repesenting a Column Accessor
@@ -12,11 +9,9 @@ const utils = require("../utils");
  * @param {Number} col Column of top left cell
  * @returns {Column}
  */
-let colAccessor = (ws, col) => {
-	if (!(ws.cols[col] instanceof Column)) {
-		ws.cols[col] = new Column(col, ws);
-	}
-	return ws.cols[col];
-};
-
-module.exports = colAccessor;
+export default function colAccessor(ws, col) {
+  if (!(ws.cols[col] instanceof Column)) {
+    ws.cols[col] = new Column(col, ws);
+  }
+  return ws.cols[col];
+}
