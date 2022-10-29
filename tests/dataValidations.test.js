@@ -1,7 +1,7 @@
-const test = require("tape");
-const xl = require("../source").default;
-const DOMParser = require("@xmldom/xmldom").DOMParser;
-const DataValidation = require("../source/lib/worksheet/classes/dataValidation");
+import test from "tape";
+import xl from "../source";
+import { DOMParser } from "@xmldom/xmldom";
+import { DataValidation } from "../source/lib/worksheet/classes/dataValidation";
 
 test("DataValidation Tests", (t) => {
 	let wb = new xl.Workbook();
@@ -65,11 +65,11 @@ test("DataValidation Tests", (t) => {
 	});
 
 	t.ok(
-		val1 instanceof DataValidation.DataValidation &&
-			val2 instanceof DataValidation.DataValidation &&
-			val3 instanceof DataValidation.DataValidation &&
-			val4 instanceof DataValidation.DataValidation &&
-			val5 instanceof DataValidation.DataValidation &&
+		val1 instanceof DataValidation &&
+			val2 instanceof DataValidation &&
+			val3 instanceof DataValidation &&
+			val4 instanceof DataValidation &&
+			val5 instanceof DataValidation &&
 			ws.dataValidationCollection.length === 5,
 		"Data Validations Created"
 	);

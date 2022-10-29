@@ -1,1 +1,1 @@
-module.exports = require("./workbook");
+export { Workbook } from "./workbook";

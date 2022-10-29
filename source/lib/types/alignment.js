@@ -90,6 +90,6 @@ readingOrders.prototype.validate = function (val) {
 	}
 };
 
-module.exports.vertical = new verticalAlignments();
-module.exports.horizontal = new horizontalAlignments();
-module.exports.readingOrder = new readingOrders();
+export const vertical = new verticalAlignments();
+export const horizontal = new horizontalAlignments();
+export const readingOrder = new readingOrders();

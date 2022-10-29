@@ -23,5 +23,4 @@ items.prototype.validate = function (val) {
 		return true;
 	}
 };
-
-module.exports = new items();
+export default new items();

@@ -1,8 +1,8 @@
-const _reduce = require("lodash.reduce");
-const _get = require("lodash.get");
-const CF_RULE_TYPES = require("./cf_rule_types");
+import _reduce from "lodash.reduce";
+import _get from "lodash.get";
+import CF_RULE_TYPES from "./cf_rule_types";
 
-class CfRule {
+export class CfRule {
 	// §18.3.1.10 cfRule (Conditional Formatting Rule)
 	constructor(ruleConfig) {
 		this.type = ruleConfig.type;
@@ -62,5 +62,3 @@ class CfRule {
 		thisRule.up();
 	}
 }
-
-module.exports = CfRule;

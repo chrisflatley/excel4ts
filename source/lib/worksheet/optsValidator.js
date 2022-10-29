@@ -1,4 +1,4 @@
-const types = require("../types");
+import * as types from "../types";
 
 const optsTypes = {
 	margins: {
@@ -209,6 +209,6 @@ let traverse = function (o, keyParts, func) {
 	}
 };
 
-module.exports = (opts) => {
+export default (opts) => {
 	traverse(opts, [], validator);
 };

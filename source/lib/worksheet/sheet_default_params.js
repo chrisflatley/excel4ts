@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	margins: {
 		bottom: 0.75,
 		footer: 0.3,

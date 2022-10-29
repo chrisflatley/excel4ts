@@ -1,11 +1,10 @@
-const deepmerge = require("deepmerge");
-const Cell = require("./cell");
-const Row = require("../row/row");
-const Comment = require("../classes/comment");
-const Column = require("../column/column");
-const Style = require("../style/style");
-const utils = require("../utils");
-const util = require("util");
+import deepmerge from "deepmerge";
+import { Cell } from "./cell";
+import { Row } from "../row/row";
+import { Comment } from "../classes/comment";
+import { Style } from "../style/style";
+import * as utils from "../utils";
+import util from "util";
 
 const validXmlRegex = /[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]/u;
 
@@ -366,7 +365,7 @@ class cellBlock {
  * @param {Boolean} isMerged Merged the cell range into a single cell
  * @returns {cellBlock}
  */
-function cellAccessor(row1, col1, row2, col2, isMerged) {
+export default function cellAccessor(row1, col1, row2, col2, isMerged) {
 	let theseCells = new cellBlock();
 	theseCells.ws = this;
 
@@ -471,5 +470,3 @@ cellBlock.prototype.date = dateSetter;
 cellBlock.prototype.link = hyperlinkSetter;
 
 cellBlock.prototype.comment = commentSetter;
-
-module.exports = cellAccessor;

@@ -1,8 +1,8 @@
-const xmlbuilder = require("xmlbuilder");
-const JSZip = require("jszip");
-const fs = require("fs");
-const CTColor = require("../style/classes/ctColor");
-const utils = require("../utils");
+import xmlbuilder from "xmlbuilder";
+import JSZip from "jszip";
+import fs from "fs";
+import { CTColor } from "../style/classes/ctColor";
+import * as utils from "../utils";
 
 let addRootContentTypesXML = (promiseObj) => {
 	// Required as stated in §12.2
@@ -722,7 +722,7 @@ let addDrawingsXML = (promiseObj) => {
  * @param {Workbook} wb Workbook instance
  * @return {Promise} resolves with Buffer
  */
-let writeToBuffer = (wb) => {
+export function writeToBuffer(wb) {
 	return new Promise((resolve, reject) => {
 		let promiseObj = {
 			wb: wb,
@@ -758,14 +758,14 @@ let writeToBuffer = (wb) => {
 				reject(e);
 			});
 	});
-};
+}
 
 /**
  * @desc Currently only used for testing the XML generated for a Workbook.
  * @param {*} wb Workbook instance
  * @return {Promise} resolves with Workbook XML
  */
-let workbookXML = (wb) => {
+export function workbookXML(wb) {
 	let promiseObj = {
 		wb: wb,
 		xlsx: new JSZip(),
@@ -775,9 +775,4 @@ let workbookXML = (wb) => {
 	return addWorkbookXML(promiseObj).then((result) => {
 		return result.xlsx.files["xl/workbook.xml"]._data;
 	});
-};
-
-module.exports = {
-	writeToBuffer,
-	workbookXML,
-};
+}

@@ -1,8 +1,8 @@
-const CfRule = require("./cf_rule");
+import { CfRule } from "./cf_rule";
 
 // -----------------------------------------------------------------------------
 
-class CfRulesCollection {
+export class CfRulesCollection {
 	// §18.3.1.18 conditionalFormatting (Conditional Formatting)
 	constructor() {
 		// rules are indexed by cell refs
@@ -31,5 +31,3 @@ class CfRulesCollection {
 		});
 	}
 }
-
-module.exports = CfRulesCollection;

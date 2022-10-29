@@ -1,6 +1,6 @@
-let test = require("tape");
-let xl = require("../source").default;
-let Column = require("../source/lib/column/column");
+import test from "tape";
+import xl from "../source";
+import { Column } from "../source/lib/column/column";
 
 test("Column Tests", (t) => {
 	let wb = new xl.Workbook();

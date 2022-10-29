@@ -1,8 +1,8 @@
-const CTMarker = require("../classes/ctMarker");
-const Point = require("../classes/point");
-const EMU = require("../classes/emu");
+import { CTMarker } from "../classes/ctMarker";
+import { Point } from "../classes/point";
+import { EMU } from "../classes/emu";
 
-class Drawing {
+export class Drawing {
 	/**
 	 * Element representing an Excel Drawing superclass
 	 * @property {String} anchorType Proprty for type of anchor. One of 'absoluteAnchor', 'oneCellAnchor', 'twoCellAnchor'
@@ -119,5 +119,3 @@ class Drawing {
 		this._position = new Point(thisCx.value, thisCy.value);
 	}
 }
-
-module.exports = Drawing;

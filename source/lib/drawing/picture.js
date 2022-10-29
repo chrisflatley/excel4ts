@@ -1,13 +1,12 @@
-const Drawing = require("./drawing");
-const path = require("path");
-const imgsz = require("image-size");
-const mime = require("mime");
-const uniqueId = require("lodash.uniqueid");
+import { Drawing } from "./drawing";
+import path from "path";
+import imgsz from "image-size";
+import mime from "mime";
+import uniqueId from "lodash.uniqueid";
 
-const EMU = require("../classes/emu");
-const xmlbuilder = require("xmlbuilder");
+import { EMU } from "../classes/emu";
 
-class Picture extends Drawing {
+export class Picture extends Drawing {
 	/**
 	 * Element representing an Excel Picture subclass of Drawing
 	 * @property {String} kind Kind of picture (currently only image is supported)
@@ -231,5 +230,3 @@ class Picture extends Drawing {
 		anchorEle.ele("xdr:clientData");
 	}
 }
-
-module.exports = Picture;

@@ -1,6 +1,6 @@
-let test = require("tape");
-let xl = require("../source").default;
-let Font = require("../source/lib/style/classes/font");
+import test from "tape";
+import xl from "../source";
+import { Font } from "../source/lib/style/classes/font";
 
 test("Change default workbook options", (t) => {
 	let wb = new xl.Workbook();

@@ -1,5 +1,5 @@
-let test = require("tape");
-let xl = require("../source").default;
+import test from "tape";
+import xl from "../source";
 
 test("Create Hyperlink", (t) => {
 	let wb = new xl.Workbook();

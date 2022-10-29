@@ -1,6 +1,6 @@
-const utils = require("../utils");
+import * as utils from "../utils";
 
-class Column {
+export class Column {
 	/**
 	 * Element representing an Excel Column
 	 * @param {Number} col Column of cell
@@ -116,5 +116,3 @@ class Column {
 		return this;
 	}
 }
-
-module.exports = Column;

@@ -1,7 +1,6 @@
-const xmlbuilder = require("xmlbuilder");
-const types = require("../../types");
+import * as types from "../../types";
 
-class Font {
+export class Font {
 	/**
 	 * @class Font
 	 * @desc Instance of Font with properties
@@ -125,5 +124,3 @@ class Font {
 		return true;
 	}
 }
-
-module.exports = Font;

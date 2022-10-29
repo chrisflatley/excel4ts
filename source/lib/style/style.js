@@ -1,11 +1,10 @@
-const utils = require("../utils");
-const deepmerge = require("deepmerge");
+import deepmerge from "deepmerge";
 
-const Alignment = require("./classes/alignment");
-const Border = require("./classes/border");
-const Fill = require("./classes/fill");
-const Font = require("./classes/font");
-const NumberFormat = require("./classes/numberFormat");
+import { Alignment } from "./classes/alignment";
+import { Border } from "./classes/border";
+import { Fill } from "./classes/fill";
+import { Font } from "./classes/font";
+import { NumberFormat } from "./classes/numberFormat";
 
 let _getFontId = (wb, font = {}) => {
 	// Create the Font and lookup key
@@ -143,7 +142,7 @@ let _getNumFmt = (wb, val) => {
         numberFormat: integer or string // §18.8.30 numFmt (Number Format)
     }
 */
-class Style {
+export class Style {
 	constructor(wb, opts) {
 		/**
 		 * Excel Style object
@@ -330,5 +329,3 @@ class Style {
 		}
 	}
 }
-
-module.exports = Style;

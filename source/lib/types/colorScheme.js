@@ -36,4 +36,4 @@ items.prototype.validate = function (val) {
 	}
 };
 
-module.exports = new items();
+export default new items();

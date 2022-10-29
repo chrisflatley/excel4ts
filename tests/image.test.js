@@ -1,10 +1,10 @@
-const tape = require("tape");
-const _tape = require("tape-promise").default;
+import tape from "tape";
+import { default as _tape } from "tape-promise";
 const test = _tape(tape);
-const xl = require("../source").default;
-const Picture = require("../source/lib/drawing/picture");
-const path = require("path");
-const fs = require("fs");
+import xl from "../source";
+import { Picture } from "../source/lib/drawing/picture";
+import path from "path";
+import fs from "fs";
 
 test("Test adding images", (t) => {
 	var wb = new xl.Workbook();

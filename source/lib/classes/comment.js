@@ -1,9 +1,8 @@
-// const uuid = require('uuid/v4');
-const { v4: uuid } = require("uuid");
-const utils = require("../utils");
+import { v4 as uuid } from "uuid";
+import * as utils from "../utils";
 
 // §18.7.3 Comment
-class Comment {
+export class Comment {
 	constructor(ref, comment, options = {}) {
 		this.ref = ref;
 		this.comment = comment;
@@ -20,5 +19,3 @@ class Comment {
 		this.visibility = options.visibility || "hidden";
 	}
 }
-
-module.exports = Comment;

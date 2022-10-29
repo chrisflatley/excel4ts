@@ -1,7 +1,6 @@
-const types = require("../../types");
-const xmlbuilder = require("xmlbuilder");
+import * as types from "../../types";
 
-class Alignment {
+export class Alignment {
 	// §18.8.1 alignment (Alignment)
 	/**
 	 * @class Alignment
@@ -164,5 +163,3 @@ class Alignment {
 		this.wrapText === true ? thisEle.att("wrapText", 1) : null;
 	}
 }
-
-module.exports = Alignment;

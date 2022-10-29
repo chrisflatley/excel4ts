@@ -1,4 +1,4 @@
-class NumberFormat {
+export class NumberFormat {
 	/**
 	 * @class NumberFormat
 	 * @param {String} fmt Format of the Number
@@ -31,5 +31,3 @@ class NumberFormat {
 		}
 	}
 }
-
-module.exports = NumberFormat;

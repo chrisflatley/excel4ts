@@ -1,4 +1,4 @@
-class DefinedName {
+export class DefinedName {
 	//§18.2.5 definedName (Defined Name)
 	constructor(opts) {
 		opts.refFormula !== undefined ? (this.refFormula = opts.refFormula) : null;
@@ -75,7 +75,7 @@ class DefinedName {
 	}
 }
 
-class DefinedNameCollection {
+export class DefinedNameCollection {
 	// §18.2.6 definedNames (Defined Names)
 	constructor() {
 		this.items = [];
@@ -106,4 +106,3 @@ class DefinedNameCollection {
 		});
 	}
 }
-module.exports = DefinedNameCollection;

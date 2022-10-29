@@ -1,7 +1,6 @@
-const types = require("../../types");
-const xmlbuilder = require("xmlbuilder");
+import * as types from "../../types";
 
-class CTColor {
+export class CTColor {
 	//§18.8.3 && §18.8.19
 	/**
 	 * @class CTColor
@@ -56,5 +55,3 @@ class CTColor {
 		colorEle.att(this.type, this[this.type]);
 	}
 }
-
-module.exports = CTColor;

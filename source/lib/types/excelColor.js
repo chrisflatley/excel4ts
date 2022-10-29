@@ -94,4 +94,4 @@ items.prototype.getColor = function (val) {
 	}
 };
 
-module.exports = new items();
+export default new items();

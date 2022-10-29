@@ -1,6 +1,6 @@
-const utils = require("../utils");
+import * as utils from "../utils";
 
-class Row {
+export class Row {
 	/**
 	 * Element representing an Excel Row
 	 * @param {Number} row Row of cell
@@ -46,7 +46,6 @@ class Row {
 		} else {
 			throw new TypeError("Row height must be a number");
 		}
-		return this.ht;
 	}
 	get height() {
 		return this.ht;
@@ -211,5 +210,3 @@ class Row {
 		return this;
 	}
 }
-
-module.exports = Row;

@@ -1,16 +1,16 @@
-const deepmerge = require("deepmerge");
-const CfRulesCollection = require("./cf/cf_rules_collection");
-const cellAccessor = require("../cell");
-const rowAccessor = require("../row");
-const colAccessor = require("../column");
-const wsDefaultParams = require("./sheet_default_params");
-const HyperlinkCollection = require("./classes/hyperlink").HyperlinkCollection;
-const DataValidation = require("./classes/dataValidation");
-const wsDrawing = require("../drawing");
-const xmlBuilder = require("./builder");
-const optsValidator = require("./optsValidator");
+import deepmerge from "deepmerge";
+import { CfRulesCollection } from "./cf/cf_rules_collection";
+import { default as cellAccessor } from "../cell";
+import { default as rowAccessor } from "../row";
+import { default as colAccessor } from "../column";
+import wsDefaultParams from "./sheet_default_params";
+import { HyperlinkCollection } from "./classes/hyperlink";
+import { DataValidationCollection } from "./classes/dataValidation";
+import { DrawingCollection } from "../drawing";
+import * as xmlBuilder from "./builder";
+import optsValidator from "./optsValidator";
 
-class Worksheet {
+export class Worksheet {
 	/**
 	 * Create a Worksheet.
 	 * @class Worksheet
@@ -126,9 +126,8 @@ class Worksheet {
 		// conditional formatting rules hashed by sqref
 		this.cfRulesCollection = new CfRulesCollection();
 		this.hyperlinkCollection = new HyperlinkCollection();
-		this.dataValidationCollection =
-			new DataValidation.DataValidationCollection();
-		this.drawingCollection = new wsDrawing.DrawingCollection();
+		this.dataValidationCollection = new DataValidationCollection();
+		this.drawingCollection = new DrawingCollection();
 		this.comments = {}; // Comments for cells keyed by excel ref
 		this.author = this.wb.author;
 	}
@@ -317,5 +316,3 @@ class Worksheet {
 		return this;
 	}
 }
-
-module.exports = Worksheet;

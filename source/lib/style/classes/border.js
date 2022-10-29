@@ -1,6 +1,5 @@
-const types = require("../../types");
-const xmlbuilder = require("xmlbuilder");
-const CTColor = require("./ctColor");
+import * as types from "../../types";
+import { CTColor } from "./ctColor";
 
 class BorderOrdinal {
 	constructor(opts) {
@@ -26,7 +25,7 @@ class BorderOrdinal {
 	}
 }
 
-class Border {
+export class Border {
 	/**
 	 * @class Border
 	 * @desc Border object for Style
@@ -152,5 +151,3 @@ class Border {
 		});
 	}
 }
-
-module.exports = Border;

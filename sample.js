@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 require("source-map-support").install();
-var xl = require("./distribution");
+const xl = require("./distribution").default;
 
 function generateWorkbook() {
 	var wb = new xl.Workbook({

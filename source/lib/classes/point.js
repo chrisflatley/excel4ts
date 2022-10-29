@@ -1,4 +1,4 @@
-class Point {
+export class Point {
 	/**
 	 * An XY coordinate point on the Worksheet with 0.0 being top left corner
 	 * @class Point
@@ -11,5 +11,3 @@ class Point {
 		this.y = y;
 	}
 }
-
-module.exports = Point;

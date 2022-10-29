@@ -1,7 +1,6 @@
-let Drawing = require("./drawing");
-let Picture = require("./picture");
+import { Picture } from "./picture";
 
-class DrawingCollection {
+export class DrawingCollection {
 	constructor() {
 		this.drawings = [];
 	}
@@ -12,11 +11,11 @@ class DrawingCollection {
 
 	add(opts) {
 		switch (opts.type) {
-			case "picture":
+			case "picture": {
 				let newPic = new Picture(opts);
 				this.drawings.push(newPic);
 				return newPic;
-
+			}
 			default:
 				throw new TypeError("this option is not yet supported");
 		}
@@ -30,5 +29,3 @@ class DrawingCollection {
 		}
 	}
 }
-
-module.exports = { DrawingCollection, Drawing, Picture };

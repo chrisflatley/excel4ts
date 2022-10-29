@@ -1,7 +1,7 @@
 // Types from xlsx spec:
 //     http://download.microsoft.com/download/D/3/3/D334A189-E51B-47FF-B0E8-C0479AFB0E3C/[MS-XLSX].pdf
 
-module.exports = {
+export default {
 	cellIs: {
 		supported: false,
 	},

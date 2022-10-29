@@ -1,7 +1,7 @@
-let test = require("tape");
-let xl = require("../source").default;
-let Style = require("../source/lib/style");
-let xmlbuilder = require("xmlbuilder");
+import test from "tape";
+import xl from "../source";
+import { Style } from "../source/lib/style";
+import xmlbuilder from "xmlbuilder";
 
 test("Create New Style", (t) => {
 	t.plan(1);

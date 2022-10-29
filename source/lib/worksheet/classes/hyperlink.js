@@ -1,4 +1,4 @@
-class Hyperlink {
+export class Hyperlink {
 	//§18.3.1.47 hyperlink (Hyperlink)
 	constructor(opts) {
 		opts = opts ? opts : {};
@@ -45,7 +45,7 @@ class Hyperlink {
 	}
 }
 
-class HyperlinkCollection {
+export class HyperlinkCollection {
 	//§18.3.1.48 hyperlinks (Hyperlinks)
 	constructor() {
 		this.links = [];
@@ -72,5 +72,3 @@ class HyperlinkCollection {
 		}
 	}
 }
-
-module.exports = { HyperlinkCollection, Hyperlink };

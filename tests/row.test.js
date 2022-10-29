@@ -1,6 +1,6 @@
-let test = require("tape");
-let xl = require("../source").default;
-let Row = require("../source/lib/row/row");
+import test from "tape";
+import xl from "../source";
+import { Row } from "../source/lib/row/row";
 
 test("Row Tests", (t) => {
 	let rowWb = new xl.Workbook({ logLevel: 5 });

@@ -1,8 +1,7 @@
-const xml = require("xmlbuilder");
-const utils = require("../utils");
-const types = require("../types");
-const hyperlinks = require("./classes/hyperlink");
-const Picture = require("../drawing/picture");
+import xml from "xmlbuilder";
+import * as utils from "../utils";
+import * as types from "../types";
+import { Hyperlink } from "./classes/hyperlink";
 
 let _addSheetPr = (promiseObj) => {
 	// §18.3.1.82 sheetPr (Sheet Properties)
@@ -576,7 +575,7 @@ let _addDrawing = (promiseObj) => {
 	});
 };
 
-let sheetXML = (ws) => {
+export const sheetXML = (ws) => {
 	return new Promise((resolve, reject) => {
 		let xmlProlog = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 		let xmlString = "";
@@ -643,7 +642,7 @@ let sheetXML = (ws) => {
 	});
 };
 
-let relsXML = (ws) => {
+export const relsXML = (ws) => {
 	return new Promise((resolve, reject) => {
 		let sheetRelRequired = false;
 		if (ws.relationships.length > 0) {
@@ -667,7 +666,7 @@ let relsXML = (ws) => {
 
 		ws.relationships.forEach((r, i) => {
 			let rId = "rId" + (i + 1);
-			if (r instanceof hyperlinks.Hyperlink) {
+			if (r instanceof Hyperlink) {
 				relXML
 					.ele("Relationship")
 					.att("Id", rId)
@@ -711,7 +710,7 @@ let relsXML = (ws) => {
 	});
 };
 
-let commentsXML = (ws) => {
+export const commentsXML = (ws) => {
 	return new Promise((resolve, reject) => {
 		const commentsXml = xml.create("comments", {
 			version: "1.0",
@@ -742,7 +741,7 @@ let commentsXML = (ws) => {
 	});
 };
 
-let commentsVmlXML = (ws) => {
+export const commentsVmlXML = (ws) => {
 	return new Promise((resolve, reject) => {
 		// do not add XML prolog to document
 		const vmlXml = xml.begin().ele("xml");
@@ -802,5 +801,3 @@ let commentsVmlXML = (ws) => {
 		resolve(xmlString);
 	});
 };
-
-module.exports = { sheetXML, relsXML, commentsXML, commentsVmlXML };

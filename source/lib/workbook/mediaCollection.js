@@ -1,6 +1,6 @@
-const fs = require("fs");
+import fs from "fs";
 
-class MediaCollection {
+export class MediaCollection {
 	constructor() {
 		this.items = [];
 	}
@@ -22,5 +22,3 @@ class MediaCollection {
 		}
 	}
 }
-
-module.exports = MediaCollection;

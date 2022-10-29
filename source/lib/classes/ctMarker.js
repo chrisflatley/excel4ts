@@ -1,6 +1,6 @@
-let EMU = require("./emu");
+import { EMU } from "./emu";
 
-class CTMarker {
+export class CTMarker {
 	/**
 	 * Element representing an Excel position marker
 	 * @param {Number} colId Column Number
@@ -54,5 +54,3 @@ class CTMarker {
 		this._rowOff = new EMU(val);
 	}
 }
-
-module.exports = CTMarker;

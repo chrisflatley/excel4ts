@@ -1,4 +1,4 @@
-const myUtils = require("../../utils");
+import * as utils from "../../utils";
 
 let cleanFormula = (f) => {
 	if (typeof f === "number" || f.substr(0, 1) === "=") {
@@ -8,7 +8,7 @@ let cleanFormula = (f) => {
 	}
 };
 
-class DataValidation {
+export class DataValidation {
 	// §18.3.1.32 dataValidation (Data Validation)
 	constructor(opts) {
 		opts = opts ? opts : {};
@@ -199,14 +199,14 @@ class DataValidation {
 		this.imeMode !== undefined ? valEle.att("imeMode", this.imeMode) : null;
 		this.operator !== undefined ? valEle.att("operator", this.operator) : null;
 		this.allowBlank !== undefined
-			? valEle.att("allowBlank", myUtils.boolToInt(this.allowBlank))
+			? valEle.att("allowBlank", utils.boolToInt(this.allowBlank))
 			: null;
 		this.showDropDown === false ? valEle.att("showDropDown", 1) : null; // For some reason, the Excel app sets this property to true if the "In-cell dropdown" option is selected in the data validation screen.
 		this.showInputMessage !== undefined
-			? valEle.att("showInputMessage", myUtils.boolToInt(this.showInputMessage))
+			? valEle.att("showInputMessage", utils.boolToInt(this.showInputMessage))
 			: null;
 		this.showErrorMessage !== undefined
-			? valEle.att("showErrorMessage", myUtils.boolToInt(this.showErrorMessage))
+			? valEle.att("showErrorMessage", utils.boolToInt(this.showErrorMessage))
 			: null;
 		this.errorTitle !== undefined
 			? valEle.att("errorTitle", this.errorTitle)
@@ -229,7 +229,7 @@ class DataValidation {
 	}
 }
 
-class DataValidationCollection {
+export class DataValidationCollection {
 	// §18.3.1.33 dataValidations (Data Validations)
 	constructor(opts) {
 		opts = opts ? opts : {};
@@ -254,5 +254,3 @@ class DataValidationCollection {
 		valsEle.up();
 	}
 }
-
-module.exports = { DataValidationCollection, DataValidation };

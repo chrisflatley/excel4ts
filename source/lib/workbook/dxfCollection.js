@@ -1,6 +1,5 @@
-const _isEqual = require("lodash.isequal");
-const Style = require("../style");
-const util = require("util");
+import _isEqual from "lodash.isequal";
+import { Style } from "../style";
 
 class DXFItem {
 	// §18.8.14 dxf (Formatting)
@@ -18,7 +17,7 @@ class DXFItem {
 	}
 }
 
-class DXFCollection {
+export class DXFCollection {
 	// §18.8.15 dxfs (Formats)
 	constructor(wb) {
 		this.wb = wb;
@@ -56,5 +55,3 @@ class DXFCollection {
 		});
 	}
 }
-
-module.exports = DXFCollection;

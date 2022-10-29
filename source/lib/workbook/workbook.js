@@ -1,19 +1,16 @@
-const _isUndefined = require("lodash.isundefined");
-const deepmerge = require("deepmerge");
-const fs = require("fs");
-const utils = require("../utils");
-const Worksheet = require("../worksheet");
-const Style = require("../style");
-const Border = require("../style/classes/border");
-const Fill = require("../style/classes/fill");
-const Font = require("../style/classes/font");
-const DXFCollection = require("./dxfCollection");
-const MediaCollection = require("./mediaCollection");
-const DefinedNameCollection = require("../classes/definedNameCollection");
-const types = require("../types");
-const builder = require("./builder");
-const http = require("http");
-import SimpleLogger from "../logger";
+import _isUndefined from "lodash.isundefined";
+import deepmerge from "deepmerge";
+import fs from "fs";
+import { Worksheet } from "../worksheet";
+import { Style } from "../style";
+import { Border } from "../style/classes/border";
+import { Fill } from "../style/classes/fill";
+import { DXFCollection } from "./dxfCollection";
+import { MediaCollection } from "./mediaCollection";
+import { DefinedNameCollection } from "../classes/definedNameCollection";
+import * as builder from "./builder";
+import http from "http";
+import { SimpleLogger } from "../logger";
 
 /* Available options for Workbook
 {
@@ -41,7 +38,7 @@ let workbookDefaultOpts = {
 	dateFormat: "m/d/yy",
 };
 
-class Workbook {
+export class Workbook {
 	/**
 	 * @class Workbook
 	 * @param {Object} opts Workbook settings
@@ -289,5 +286,3 @@ class Workbook {
 		return builder.workbookXML(this);
 	}
 }
-
-module.exports = Workbook;

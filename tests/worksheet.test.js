@@ -1,8 +1,8 @@
-const tape = require("tape");
-const _tape = require("tape-promise").default;
+import tape from "tape";
+import { default as _tape } from "tape-promise";
 const test = _tape(tape);
-const xl = require("../source").default;
-const DOMParser = require("@xmldom/xmldom").DOMParser;
+import xl from "../source";
+import { DOMParser } from "@xmldom/xmldom";
 
 test("Generate multiple sheets", (t) => {
 	let wb = new xl.Workbook();
@@ -23,7 +23,7 @@ test("Generate multiple sheets", (t) => {
 	t.end();
 });
 
-test("Set Worksheet options", (t) => {
+test("Set Worksheet options", async (t) => {
 	let wb = new xl.Workbook();
 	let ws = wb.addWorksheet("test 1", {
 		margins: {
@@ -124,7 +124,7 @@ test("Set Worksheet options", (t) => {
 	});
 	ws.row(2).filter(1, 10);
 
-	ws.generateXML().then((XML) => {
+	await ws.generateXML().then((XML) => {
 		let doc = new DOMParser().parseFromString(XML);
 		let margins = doc.getElementsByTagName("pageMargins")[0];
 		t.equals(
@@ -510,11 +510,9 @@ test("Set Worksheet options", (t) => {
 			"1",
 			"outline property summaryRight set correctly"
 		);
-
-		t.end();
 	});
 
-	wb._generateXML().then((XML) => {
+	await wb._generateXML().then((XML) => {
 		let doc = new DOMParser().parseFromString(XML);
 		let sheet = doc.getElementsByTagName("sheet")[0];
 		t.equals(
@@ -523,6 +521,8 @@ test("Set Worksheet options", (t) => {
 			"Hidden state properly set"
 		);
 	});
+
+	t.end();
 });
 
 test("Verify Invalid Worksheet options fail type validation", (t) => {

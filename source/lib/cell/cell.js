@@ -1,8 +1,7 @@
-const utils = require("../utils");
-const Comment = require("../classes/comment");
+import * as utils from "../utils";
 
 // §18.3.1.4 c (Cell)
-class Cell {
+export class Cell {
 	/**
 	 * Create an Excel Cell
 	 * @private
@@ -77,5 +76,3 @@ class Cell {
 		cEle.up();
 	}
 }
-
-module.exports = Cell;

@@ -13,4 +13,4 @@ measure.prototype.validate = function (val) {
 	}
 };
 
-module.exports = new measure();
+export default new measure();

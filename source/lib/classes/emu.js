@@ -1,4 +1,4 @@
-class EMU {
+export class EMU {
 	/**
 	 * The EMU was created in order to be able to evenly divide in both English and Metric units
 	 * @class EMU
@@ -77,8 +77,6 @@ class EMU {
 		return this._value / 360000;
 	}
 }
-
-module.exports = EMU;
 
 /*
 M.4.1.1 EMU Unit of Measurement

@@ -1,6 +1,5 @@
-const types = require("../../types");
-const xmlbuilder = require("xmlbuilder");
-const CTColor = require("./ctColor");
+import * as types from "../../types";
+import { CTColor } from "./ctColor";
 
 class Stop {
 	//§18.8.38
@@ -30,7 +29,7 @@ class Stop {
 	}
 }
 
-class Fill {
+export class Fill {
 	//§18.8.20 fill (Fill)
 
 	/**
@@ -195,5 +194,3 @@ class Fill {
 		}
 	}
 }
-
-module.exports = Fill;

@@ -9,7 +9,7 @@ type ArgumentTypes<F extends Function> = F extends (...args: infer A) => any
 	? A
 	: never;
 
-export default class SimpleLogger {
+export class SimpleLogger {
 	private logLevel: LogLevel;
 
 	constructor(opts: LoggerOptions) {

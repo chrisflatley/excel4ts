@@ -1,7 +1,6 @@
-var deepmerge = require("deepmerge");
-var test = require("tape");
-
-var CfRule = require("../source/lib/worksheet/cf/cf_rule");
+import deepmerge from "deepmerge";
+import test from "tape";
+import { CfRule } from "../source/lib/worksheet/cf/cf_rule";
 
 test("CfRule init", function (t) {
 	t.plan(4);
