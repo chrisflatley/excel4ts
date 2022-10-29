@@ -13,7 +13,7 @@ const DefinedNameCollection = require('../classes/definedNameCollection.js');
 const types = require('../types/index.js');
 const builder = require('./builder.js');
 const http = require('http');
-const SimpleLogger = require('../logger');
+import SimpleLogger from '../logger';
 
 /* Available options for Workbook
 {
