@@ -1,1 +1,1 @@
-module.exports = require('./workbook.js');
+module.exports = require('./workbook');

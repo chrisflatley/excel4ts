@@ -1,10 +1,10 @@
 const deepmerge = require('deepmerge');
-const Cell = require('./cell.js');
-const Row = require('../row/row.js');
+const Cell = require('./cell');
+const Row = require('../row/row');
 const Comment = require('../classes/comment');
-const Column = require('../column/column.js');
-const Style = require('../style/style.js');
-const utils = require('../utils.js');
+const Column = require('../column/column');
+const Style = require('../style/style');
+const utils = require('../utils');
 const util = require('util');
 
 const validXmlRegex = /[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]/u;
@@ -16,305 +16,325 @@ const validXmlRegex = /[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]/u;
  * We need to test codepoints numerically, instead of regex characters above 65536 (0x10000),
  */
 function removeInvalidXml(str) {
-    return Array.from(str).map(c => {
-        const cp = c.codePointAt(0);
-        if (cp >= 65536 && cp <= 1114111) {
-            return c
-        } else if (c.match(validXmlRegex)) {
-            return c;
-        } else {
-            return '';
-        }
-    }).join('');
+  return Array.from(str)
+    .map((c) => {
+      const cp = c.codePointAt(0);
+      if (cp >= 65536 && cp <= 1114111) {
+        return c;
+      } else if (c.match(validXmlRegex)) {
+        return c;
+      } else {
+        return '';
+      }
+    })
+    .join('');
 }
 
 function stringSetter(val) {
-    let logger = this.ws.wb.logger;
+  let logger = this.ws.wb.logger;
 
-    if (typeof (val) !== 'string') {
-        logger.warn('Value sent to String function of cells %s was not a string, it has type of %s',
-            JSON.stringify(this.excelRefs),
-            typeof (val));
-        val = '';
-    }
-    val = removeInvalidXml(val);
+  if (typeof val !== 'string') {
+    logger.warn(
+      'Value sent to String function of cells %s was not a string, it has type of %s',
+      JSON.stringify(this.excelRefs),
+      typeof val
+    );
+    val = '';
+  }
+  val = removeInvalidXml(val);
 
-    if (!this.merged) {
-        this.cells.forEach((c) => {
-            c.string(this.ws.wb.getStringIndex(val));
-        });
-    } else {
-        let c = this.cells[0];
-        c.string(this.ws.wb.getStringIndex(val));
-    }
-    return this;
+  if (!this.merged) {
+    this.cells.forEach((c) => {
+      c.string(this.ws.wb.getStringIndex(val));
+    });
+  } else {
+    let c = this.cells[0];
+    c.string(this.ws.wb.getStringIndex(val));
+  }
+  return this;
 }
 
 function complexStringSetter(val) {
-    if (!this.merged) {
-        this.cells.forEach((c) => {
-            c.string(this.ws.wb.getStringIndex(val));
-        });
-    } else {
-        let c = this.cells[0];
-        c.string(this.ws.wb.getStringIndex(val));
-    }
-    return this;
+  if (!this.merged) {
+    this.cells.forEach((c) => {
+      c.string(this.ws.wb.getStringIndex(val));
+    });
+  } else {
+    let c = this.cells[0];
+    c.string(this.ws.wb.getStringIndex(val));
+  }
+  return this;
 }
 
 function numberSetter(val) {
-    if (val === undefined || parseFloat(val) !== val) {
-        throw new TypeError(util.format('Value sent to Number function of cells %s was not a number, it has type of %s and value of %s',
-            JSON.stringify(this.excelRefs),
-            typeof (val),
-            val
-        ));
-    }
-    val = parseFloat(val);
+  if (val === undefined || parseFloat(val) !== val) {
+    throw new TypeError(
+      util.format(
+        'Value sent to Number function of cells %s was not a number, it has type of %s and value of %s',
+        JSON.stringify(this.excelRefs),
+        typeof val,
+        val
+      )
+    );
+  }
+  val = parseFloat(val);
 
-    if (!this.merged) {
-        this.cells.forEach((c, i) => {
-            c.number(val);
-        });
-    } else {
-        var c = this.cells[0];
-        c.number(val);
-    }
-    return this;
+  if (!this.merged) {
+    this.cells.forEach((c, i) => {
+      c.number(val);
+    });
+  } else {
+    var c = this.cells[0];
+    c.number(val);
+  }
+  return this;
 }
 
 function booleanSetter(val) {
-    if (val === undefined || typeof (val.toString().toLowerCase() === 'true' || ((val.toString().toLowerCase() === 'false') ? false : val)) !== 'boolean') {
-        throw new TypeError(util.format('Value sent to Bool function of cells %s was not a bool, it has type of %s and value of %s',
-            JSON.stringify(this.excelRefs),
-            typeof (val),
-            val
-        ));
-    }
-    val = val.toString().toLowerCase() === 'true';
+  if (
+    val === undefined ||
+    typeof (val.toString().toLowerCase() === 'true' || (val.toString().toLowerCase() === 'false' ? false : val)) !== 'boolean'
+  ) {
+    throw new TypeError(
+      util.format(
+        'Value sent to Bool function of cells %s was not a bool, it has type of %s and value of %s',
+        JSON.stringify(this.excelRefs),
+        typeof val,
+        val
+      )
+    );
+  }
+  val = val.toString().toLowerCase() === 'true';
 
-    if (!this.merged) {
-        this.cells.forEach((c, i) => {
-            c.bool(val.toString());
-        });
-    } else {
-        var c = this.cells[0];
-        c.bool(val.toString());
-    }
-    return this;
+  if (!this.merged) {
+    this.cells.forEach((c, i) => {
+      c.bool(val.toString());
+    });
+  } else {
+    var c = this.cells[0];
+    c.bool(val.toString());
+  }
+  return this;
 }
 
 function formulaSetter(val) {
-    if (typeof (val) !== 'string') {
-        throw new TypeError(util.format('Value sent to Formula function of cells %s was not a string, it has type of %s', JSON.stringify(this.excelRefs), typeof (val)));
-    }
-    if (this.merged !== true) {
-        this.cells.forEach((c, i) => {
-            c.formula(val);
-        });
-    } else {
-        var c = this.cells[0];
-        c.formula(val);
-    }
+  if (typeof val !== 'string') {
+    throw new TypeError(
+      util.format(
+        'Value sent to Formula function of cells %s was not a string, it has type of %s',
+        JSON.stringify(this.excelRefs),
+        typeof val
+      )
+    );
+  }
+  if (this.merged !== true) {
+    this.cells.forEach((c, i) => {
+      c.formula(val);
+    });
+  } else {
+    var c = this.cells[0];
+    c.formula(val);
+  }
 
-    return this;
+  return this;
 }
 
 function dateSetter(val) {
-    let thisDate = new Date(val);
-    if (isNaN(thisDate.getTime())) {
-        throw new TypeError(util.format('Invalid date sent to date function of cells. %s could not be converted to a date.', val));
-    }
-    if (this.merged !== true) {
-        this.cells.forEach((c, i) => {
-            c.date(thisDate);
-        });
-    } else {
-        var c = this.cells[0];
-        c.date(thisDate);
-    }
-    const dtStyle = new Style(this.ws.wb, {
-        numberFormat: '[$-409]' + this.ws.wb.opts.dateFormat
+  let thisDate = new Date(val);
+  if (isNaN(thisDate.getTime())) {
+    throw new TypeError(util.format('Invalid date sent to date function of cells. %s could not be converted to a date.', val));
+  }
+  if (this.merged !== true) {
+    this.cells.forEach((c, i) => {
+      c.date(thisDate);
     });
-    return styleSetter.bind(this)(dtStyle);
+  } else {
+    var c = this.cells[0];
+    c.date(thisDate);
+  }
+  const dtStyle = new Style(this.ws.wb, {
+    numberFormat: '[$-409]' + this.ws.wb.opts.dateFormat,
+  });
+  return styleSetter.bind(this)(dtStyle);
 }
 
 function styleSetter(val) {
-    let thisStyle;
-    if (val instanceof Style) {
-        thisStyle = val.toObject();
-    } else if (val instanceof Object) {
-        thisStyle = val;
-    } else {
-        throw new TypeError(util.format('Parameter sent to Style function must be an instance of a Style or a style configuration object'));
-    }
+  let thisStyle;
+  if (val instanceof Style) {
+    thisStyle = val.toObject();
+  } else if (val instanceof Object) {
+    thisStyle = val;
+  } else {
+    throw new TypeError(util.format('Parameter sent to Style function must be an instance of a Style or a style configuration object'));
+  }
 
-    let borderEdges = {};
+  let borderEdges = {};
+  if (thisStyle.border && thisStyle.border.outline) {
+    borderEdges.left = this.firstCol;
+    borderEdges.right = this.lastCol;
+    borderEdges.top = this.firstRow;
+    borderEdges.bottom = this.lastRow;
+  }
+
+  this.cells.forEach((c) => {
     if (thisStyle.border && thisStyle.border.outline) {
-        borderEdges.left = this.firstCol;
-        borderEdges.right = this.lastCol;
-        borderEdges.top = this.firstRow;
-        borderEdges.bottom = this.lastRow;
+      let thisCellsBorder = {};
+      if (c.row === borderEdges.top && thisStyle.border.top) {
+        thisCellsBorder.top = thisStyle.border.top;
+      }
+      if (c.row === borderEdges.bottom && thisStyle.border.bottom) {
+        thisCellsBorder.bottom = thisStyle.border.bottom;
+      }
+      if (c.col === borderEdges.left && thisStyle.border.left) {
+        thisCellsBorder.left = thisStyle.border.left;
+      }
+      if (c.col === borderEdges.right && thisStyle.border.right) {
+        thisCellsBorder.right = thisStyle.border.right;
+      }
+      thisStyle.border = thisCellsBorder;
     }
 
-    this.cells.forEach((c) => {
-        if (thisStyle.border && thisStyle.border.outline) {
-            let thisCellsBorder = {};
-            if (c.row === borderEdges.top && thisStyle.border.top) {
-                thisCellsBorder.top = thisStyle.border.top;
-            }
-            if (c.row === borderEdges.bottom && thisStyle.border.bottom) {
-                thisCellsBorder.bottom = thisStyle.border.bottom;
-            }
-            if (c.col === borderEdges.left && thisStyle.border.left) {
-                thisCellsBorder.left = thisStyle.border.left;
-            }
-            if (c.col === borderEdges.right && thisStyle.border.right) {
-                thisCellsBorder.right = thisStyle.border.right;
-            }
-            thisStyle.border = thisCellsBorder;
-        }
-
-        if (c.s === 0) {
-            let thisCellStyle = this.ws.wb.createStyle(thisStyle);
-            c.style(thisCellStyle.ids.cellXfs);
-        } else {
-            let curStyle = this.ws.wb.styles[c.s];
-            let newStyleOpts = deepmerge(curStyle.toObject(), thisStyle);
-            let mergedStyle = this.ws.wb.createStyle(newStyleOpts);
-            c.style(mergedStyle.ids.cellXfs);
-        }
-    });
-    return this;
+    if (c.s === 0) {
+      let thisCellStyle = this.ws.wb.createStyle(thisStyle);
+      c.style(thisCellStyle.ids.cellXfs);
+    } else {
+      let curStyle = this.ws.wb.styles[c.s];
+      let newStyleOpts = deepmerge(curStyle.toObject(), thisStyle);
+      let mergedStyle = this.ws.wb.createStyle(newStyleOpts);
+      c.style(mergedStyle.ids.cellXfs);
+    }
+  });
+  return this;
 }
 
 function hyperlinkSetter(url, displayStr, tooltip) {
-    this.excelRefs.forEach((ref) => {
-        displayStr = typeof displayStr === 'string' ? displayStr : url;
-        this.ws.hyperlinkCollection.add({
-            location: url,
-            display: displayStr,
-            tooltip: tooltip,
-            ref: ref
-        });
+  this.excelRefs.forEach((ref) => {
+    displayStr = typeof displayStr === 'string' ? displayStr : url;
+    this.ws.hyperlinkCollection.add({
+      location: url,
+      display: displayStr,
+      tooltip: tooltip,
+      ref: ref,
     });
-    stringSetter.bind(this)(displayStr);
-    return styleSetter.bind(this)({
-        font: {
-            color: 'Blue',
-            underline: true
-        }
-    });
+  });
+  stringSetter.bind(this)(displayStr);
+  return styleSetter.bind(this)({
+    font: {
+      color: 'Blue',
+      underline: true,
+    },
+  });
 }
 
 function commentSetter(comment, options) {
-    if (this.merged !== true) {
-        this.cells.forEach((c, i) => {
-            this.ws.comments[c.r] = new Comment(c.r, comment, options)
-        });
-    } else {
-        var c = this.cells[0];
-        this.ws.comments[c.r] = new Comment(c.r, comment, options)
-    }
-    return this;
+  if (this.merged !== true) {
+    this.cells.forEach((c, i) => {
+      this.ws.comments[c.r] = new Comment(c.r, comment, options);
+    });
+  } else {
+    var c = this.cells[0];
+    this.ws.comments[c.r] = new Comment(c.r, comment, options);
+  }
+  return this;
 }
 
 function mergeCells(cellBlock) {
-    let excelRefs = cellBlock.excelRefs;
-    if (excelRefs instanceof Array && excelRefs.length > 0) {
-        excelRefs.sort(utils.sortCellRefs);
+  let excelRefs = cellBlock.excelRefs;
+  if (excelRefs instanceof Array && excelRefs.length > 0) {
+    excelRefs.sort(utils.sortCellRefs);
 
-        let cellRange = excelRefs[0] + ':' + excelRefs[excelRefs.length - 1];
-        let rangeCells = excelRefs;
+    let cellRange = excelRefs[0] + ':' + excelRefs[excelRefs.length - 1];
+    let rangeCells = excelRefs;
 
-        let okToMerge = true;
-        cellBlock.ws.mergedCells.forEach((cr) => {
-            // Check to see if currently merged cells contain cells in new merge request
-            let curCells = utils.getAllCellsInExcelRange(cr);
-            let intersection = utils.arrayIntersectSafe(rangeCells, curCells);
-            if (intersection.length > 0) {
-                okToMerge = false;
-                cellBlock.ws.wb.logger.error(`Invalid Range for: ${cellRange}. Some cells in this range are already included in another merged cell range: ${cr}.`);
-            }
-        });
-        if (okToMerge) {
-            cellBlock.ws.mergedCells.push(cellRange);
-        }
-    } else {
-        throw new TypeError(util.format('excelRefs variable sent to mergeCells function must be an array with length > 0'));
+    let okToMerge = true;
+    cellBlock.ws.mergedCells.forEach((cr) => {
+      // Check to see if currently merged cells contain cells in new merge request
+      let curCells = utils.getAllCellsInExcelRange(cr);
+      let intersection = utils.arrayIntersectSafe(rangeCells, curCells);
+      if (intersection.length > 0) {
+        okToMerge = false;
+        cellBlock.ws.wb.logger.error(
+          `Invalid Range for: ${cellRange}. Some cells in this range are already included in another merged cell range: ${cr}.`
+        );
+      }
+    });
+    if (okToMerge) {
+      cellBlock.ws.mergedCells.push(cellRange);
     }
+  } else {
+    throw new TypeError(util.format('excelRefs variable sent to mergeCells function must be an array with length > 0'));
+  }
 }
 
 /**
  * @class cellBlock
  */
 class cellBlock {
+  constructor() {
+    this.ws;
+    this.cells = [];
+    this.excelRefs = [];
+    this.merged = false;
+  }
 
-    constructor() {
-        this.ws;
-        this.cells = [];
-        this.excelRefs = [];
-        this.merged = false;
-    }
+  get matrix() {
+    let matrix = [];
+    let tmpObj = {};
+    this.cells.forEach((c) => {
+      if (!tmpObj[c.row]) {
+        tmpObj[c.row] = [];
+      }
+      tmpObj[c.row].push(c);
+    });
+    let rows = Object.keys(tmpObj);
+    rows.forEach((r) => {
+      tmpObj[r].sort((a, b) => {
+        return a.col - b.col;
+      });
+      matrix.push(tmpObj[r]);
+    });
+    return matrix;
+  }
 
-    get matrix() {
-        let matrix = [];
-        let tmpObj = {};
-        this.cells.forEach((c) => {
-            if (!tmpObj[c.row]) {
-                tmpObj[c.row] = [];
-            }
-            tmpObj[c.row].push(c);
-        });
-        let rows = Object.keys(tmpObj);
-        rows.forEach((r) => {
-            tmpObj[r].sort((a, b) => {
-                return a.col - b.col;
-            });
-            matrix.push(tmpObj[r]);
-        });
-        return matrix;
-    }
+  get firstRow() {
+    let firstRow;
+    this.cells.forEach((c) => {
+      if (c.row < firstRow || firstRow === undefined) {
+        firstRow = c.row;
+      }
+    });
+    return firstRow;
+  }
 
-    get firstRow() {
-        let firstRow;
-        this.cells.forEach((c) => {
-            if (c.row < firstRow || firstRow === undefined) {
-                firstRow = c.row;
-            }
-        });
-        return firstRow;
-    }
+  get lastRow() {
+    let lastRow;
+    this.cells.forEach((c) => {
+      if (c.row > lastRow || lastRow === undefined) {
+        lastRow = c.row;
+      }
+    });
+    return lastRow;
+  }
 
-    get lastRow() {
-        let lastRow;
-        this.cells.forEach((c) => {
-            if (c.row > lastRow || lastRow === undefined) {
-                lastRow = c.row;
-            }
-        });
-        return lastRow;
-    }
+  get firstCol() {
+    let firstCol;
+    this.cells.forEach((c) => {
+      if (c.col < firstCol || firstCol === undefined) {
+        firstCol = c.col;
+      }
+    });
+    return firstCol;
+  }
 
-    get firstCol() {
-        let firstCol;
-        this.cells.forEach((c) => {
-            if (c.col < firstCol || firstCol === undefined) {
-                firstCol = c.col;
-            }
-        });
-        return firstCol;
-    }
-
-    get lastCol() {
-        let lastCol;
-        this.cells.forEach((c) => {
-            if (c.col > lastCol || lastCol === undefined) {
-                lastCol = c.col;
-            }
-        });
-        return lastCol;
-    }
+  get lastCol() {
+    let lastCol;
+    this.cells.forEach((c) => {
+      if (c.col > lastCol || lastCol === undefined) {
+        lastCol = c.col;
+      }
+    });
+    return lastCol;
+  }
 }
 
 /**
@@ -331,43 +351,43 @@ class cellBlock {
  * @returns {cellBlock}
  */
 function cellAccessor(row1, col1, row2, col2, isMerged) {
-    let theseCells = new cellBlock();
-    theseCells.ws = this;
+  let theseCells = new cellBlock();
+  theseCells.ws = this;
 
-    row2 = row2 ? row2 : row1;
-    col2 = col2 ? col2 : col1;
+  row2 = row2 ? row2 : row1;
+  col2 = col2 ? col2 : col1;
 
-    if (row2 > this.lastUsedRow) {
-        this.lastUsedRow = row2;
+  if (row2 > this.lastUsedRow) {
+    this.lastUsedRow = row2;
+  }
+
+  if (col2 > this.lastUsedCol) {
+    this.lastUsedCol = col2;
+  }
+
+  for (let r = row1; r <= row2; r++) {
+    for (let c = col1; c <= col2; c++) {
+      let ref = `${utils.getExcelAlpha(c)}${r}`;
+      if (!this.cells[ref]) {
+        this.cells[ref] = new Cell(r, c);
+      }
+      if (!this.rows[r]) {
+        this.rows[r] = new Row(r, this);
+      }
+      if (this.rows[r].cellRefs.indexOf(ref) < 0) {
+        this.rows[r].cellRefs.push(ref);
+      }
+
+      theseCells.cells.push(this.cells[ref]);
+      theseCells.excelRefs.push(ref);
     }
+  }
+  if (isMerged) {
+    theseCells.merged = true;
+    mergeCells(theseCells);
+  }
 
-    if (col2 > this.lastUsedCol) {
-        this.lastUsedCol = col2;
-    }
-
-    for (let r = row1; r <= row2; r++) {
-        for (let c = col1; c <= col2; c++) {
-            let ref = `${utils.getExcelAlpha(c)}${r}`;
-            if (!this.cells[ref]) {
-                this.cells[ref] = new Cell(r, c);
-            }
-            if (!this.rows[r]) {
-                this.rows[r] = new Row(r, this);
-            }
-            if (this.rows[r].cellRefs.indexOf(ref) < 0) {
-                this.rows[r].cellRefs.push(ref);
-            }
-
-            theseCells.cells.push(this.cells[ref]);
-            theseCells.excelRefs.push(ref);
-        }
-    }
-    if (isMerged) {
-        theseCells.merged = true;
-        mergeCells(theseCells);
-    }
-
-    return theseCells;
+  return theseCells;
 }
 
 /**
@@ -377,11 +397,11 @@ function cellAccessor(row1, col1, row2, col2, isMerged) {
  * @returns {cellBlock} Block of cells with attached methods
  */
 cellBlock.prototype.string = function (val) {
-    if (val instanceof Array) {
-        return complexStringSetter.bind(this)(val);
-    } else {
-        return stringSetter.bind(this)(val);
-    }
+  if (val instanceof Array) {
+    return complexStringSetter.bind(this)(val);
+  } else {
+    return stringSetter.bind(this)(val);
+  }
 };
 
 /**

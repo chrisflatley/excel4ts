@@ -1,4 +1,4 @@
-const Row = require('../row/row.js');
+const Row = require('../row/row');
 
 /**
  * Module repesenting a Row Accessor
@@ -10,18 +10,15 @@ const Row = require('../row/row.js');
  * @returns {Row}
  */
 let rowAccessor = function (ws, row) {
+  if (typeof row !== 'number') {
+    throw new TypeError('Row sent to row accessor was not a number.');
+  }
 
-    if (typeof row !== 'number') {
-        throw new TypeError('Row sent to row accessor was not a number.');
-    }
+  if (!(ws.rows[row] instanceof Row)) {
+    ws.rows[row] = new Row(row, ws);
+  }
 
-    if (!(ws.rows[row] instanceof Row)) {
-        ws.rows[row] = new Row(row, ws);
-    }
-
-    return ws.rows[row];
+  return ws.rows[row];
 };
-
-
 
 module.exports = rowAccessor;

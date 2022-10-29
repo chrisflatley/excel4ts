@@ -1,7 +1,7 @@
-const Cell = require('../cell/cell.js');
-const Row = require('../row/row.js');
-const Column = require('../column/column.js');
-const utils = require('../utils.js');
+const Cell = require('../cell/cell');
+const Row = require('../row/row');
+const Column = require('../column/column');
+const utils = require('../utils');
 
 /**
  * Module repesenting a Column Accessor
@@ -13,10 +13,10 @@ const utils = require('../utils.js');
  * @returns {Column}
  */
 let colAccessor = (ws, col) => {
-    if (!(ws.cols[col] instanceof Column)) {
-        ws.cols[col] = new Column(col, ws);
-    }
-    return ws.cols[col];
+  if (!(ws.cols[col] instanceof Column)) {
+    ws.cols[col] = new Column(col, ws);
+  }
+  return ws.cols[col];
 };
 
 module.exports = colAccessor;

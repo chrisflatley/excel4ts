@@ -1,6 +1,6 @@
-let types = require('./types/index.js');
+import * as types from './types';
 
-let _bitXOR = (a, b) => {
+const _bitXOR = (a: string, b: string): string => {
     let maxLength = a.length > b.length ? a.length : b.length;
 
     let padString = '';
@@ -18,7 +18,7 @@ let _bitXOR = (a, b) => {
     return response;
 };
 
-let generateRId = () => {
+export const generateRId = (): string => {
     let text = 'R';
     let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 16; i++) {
@@ -27,15 +27,15 @@ let generateRId = () => {
     return text;
 };
 
-let _rotateBinary = (bin) => {
+const _rotateBinary = (bin: string): string => {
     return bin.substr(1, bin.length - 1) + bin.substr(0, 1);
 };
 
-let _getHashForChar = (char, hash) => {    
+const _getHashForChar = (char: string, hash: string): string => {
     hash = hash ? hash : '0000';
     let charCode = char.charCodeAt(0);
     let hashBin = parseInt(hash, 16).toString(2);
-    let charBin = parseInt(charCode, 10).toString(2);
+    let charBin = charCode.toString(2);
     hashBin = String('000000000000000' + hashBin).substr(-15);
     charBin = String('000000000000000' + charBin).substr(-15);
     let nextHash = _bitXOR(hashBin, charBin);
@@ -46,13 +46,13 @@ let _getHashForChar = (char, hash) => {
 };
 
 //  http://www.openoffice.org/sc/excelfileformat.pdf section 4.18.4
-let getHashOfPassword = (str) => {
+export const getHashOfPassword = (str: string) => {
     let curHash = '0000';
     for (let i = str.length - 1; i >= 0; i--) {
         curHash = _getHashForChar(str[i], curHash);
     }
     let curHashBin = parseInt(curHash, 16).toString(2);
-    let charCountBin = parseInt(str.length, 10).toString(2);
+    let charCountBin = str.length.toString(2);
     let saltBin = parseInt('CE4B', 16).toString(2);
 
     let firstXOR = _bitXOR(curHashBin, charCountBin);
@@ -71,7 +71,7 @@ let getHashOfPassword = (str) => {
  * // returns B
  * getExcelAlpha(2);
  */
-let getExcelAlpha = (colNum) => {
+export const getExcelAlpha = (colNum: number): string => {
     let remaining = colNum;
     let aCharCode = 65;
     let columnName = '';
@@ -79,7 +79,7 @@ let getExcelAlpha = (colNum) => {
         let mod = (remaining - 1) % 26;
         columnName = String.fromCharCode(aCharCode + mod) + columnName;
         remaining = (remaining - 1 - mod) / 26;
-    } 
+    }
     return columnName;
 };
 
@@ -93,7 +93,7 @@ let getExcelAlpha = (colNum) => {
  * // returns B1
  * getExcelCellRef(1, 2);
  */
-let getExcelCellRef = (rowNum, colNum) => {
+export const getExcelCellRef = (rowNum: number, colNum: number): string => {
     let remaining = colNum;
     let aCharCode = 65;
     let columnName = '';
@@ -101,7 +101,7 @@ let getExcelCellRef = (rowNum, colNum) => {
         let mod = (remaining - 1) % 26;
         columnName = String.fromCharCode(aCharCode + mod) + columnName;
         remaining = (remaining - 1 - mod) / 26;
-    } 
+    }
     return columnName + rowNum;
 };
 
@@ -114,7 +114,7 @@ let getExcelCellRef = (rowNum, colNum) => {
  * // returns {row: 2, col: 3}
  * getExcelRowCol('C2')
  */
-let getExcelRowCol = (str) => {
+export const getExcelRowCol = (str: string): { row: number, col: number } => {
     let numeric = str.split(/\D/).filter(function (el) {
         return el !== '';
     })[0];
@@ -137,7 +137,7 @@ let getExcelRowCol = (str) => {
  * // returns 29810.958333333332
  * getExcelTS(new Date('08/13/1981'));
  */
-let getExcelTS = (date) => {
+export const getExcelTS = (date: Date): number => {
 
     let thisDt = new Date(date);
     thisDt = new Date(thisDt.getTime() + 24 * 60 * 60 * 1000);
@@ -146,9 +146,9 @@ let getExcelTS = (date) => {
 
     // Handle legacy leap year offset as described in  §18.17.4.1
     const legacyLeapDate = new Date('1900-02-28T23:59:59.999Z');
-    if (thisDt - legacyLeapDate > 0) {
+    if (thisDt.getTime() - legacyLeapDate.getTime() > 0) {
         thisDt = new Date(thisDt.getTime() + 24 * 60 * 60 * 1000);
-    } 
+    }
 
     // Get milliseconds between date sent to function and epoch 
     let diff2 = thisDt.getTime() - epoch.getTime();
@@ -158,7 +158,7 @@ let getExcelTS = (date) => {
     return parseFloat(ts.toFixed(7));
 };
 
-let sortCellRefs = (a, b) => {
+export const sortCellRefs = (a: string, b: string): number => {
     let aAtt = getExcelRowCol(a);
     let bAtt = getExcelRowCol(b);
     if (aAtt.col === bAtt.col) {
@@ -168,7 +168,7 @@ let sortCellRefs = (a, b) => {
     }
 };
 
-let arrayIntersectSafe = (a, b) => {
+export const arrayIntersectSafe = <T>(a: T[], b: []): T[] => {
 
     if (a instanceof Array && b instanceof Array) {
         var ai = 0, bi = 0;
@@ -191,15 +191,15 @@ let arrayIntersectSafe = (a, b) => {
     }
 };
 
-let getAllCellsInExcelRange = (range) => {
+export const getAllCellsInExcelRange = (range: string) => {
     var cells = range.split(':');
     var cell1props = getExcelRowCol(cells[0]);
     var cell2props = getExcelRowCol(cells[1]);
     return getAllCellsInNumericRange(cell1props.row, cell1props.col, cell2props.row, cell2props.col);
 };
 
-let getAllCellsInNumericRange = (row1, col1, row2, col2) => {
-    var response = [];
+export const getAllCellsInNumericRange = (row1: number, col1: number, row2: number, col2: number) => {
+    var response: string[] = [];
     row2 = row2 ? row2 : row1;
     col2 = col2 ? col2 : col1;
     for (var i = row1; i <= row2; i++) {
@@ -210,7 +210,7 @@ let getAllCellsInNumericRange = (row1, col1, row2, col2) => {
     return response.sort(sortCellRefs);
 };
 
-let boolToInt = (bool) => {
+export const boolToInt = (bool: boolean): number => {
     if (bool === true) {
         return 1;
     }
@@ -226,20 +226,3 @@ let boolToInt = (bool) => {
     throw new TypeError('Value sent to boolToInt must be true, false, 1 or 0');
 };
 
-/*
- * Helper Functions
- */
-
-module.exports = {
-    generateRId,
-    getHashOfPassword,
-    getExcelAlpha,
-    getExcelCellRef,
-    getExcelRowCol,
-    getExcelTS,
-    sortCellRefs,
-    arrayIntersectSafe,
-    getAllCellsInExcelRange,
-    getAllCellsInNumericRange,
-    boolToInt
-};
