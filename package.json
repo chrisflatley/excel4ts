@@ -38,6 +38,8 @@
     "prepublishOnly": "npm run build; npm run test",
     "validate": "npm test; npm run build; node sample.js; ./validate.sh Excel.xlsx",
     "lint": "eslint . --cache --fix --ext .ts",
+    "lint:check": "eslint . --cache --ext .ts",
+    "format:check": "prettier --loglevel warn --check \"**/*.{js,ts,md}\"",
     "format": "prettier --loglevel warn --write \"**/*.{js,ts,md}\"",
     "prepare": "husky install"
   },
